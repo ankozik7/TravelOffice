@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 
 public class TravelOffice {
@@ -19,14 +22,21 @@ public class TravelOffice {
     }
 
 
-    public void setCustomerCount(int customerCount) { this.customerCount = customerCount; }
 
-    public int getCustomerCount() {
-        return customerCount;
+    public void removeCustomer( String name) {
+        Predicate<Customer> customerPredicate
+                = customer -> customer.getName().equals(name);
+        this.customerSet.removeIf(customerPredicate);
     }
 
 
-
+    public  boolean removeTrip(String name){
+        boolean removed=true;
+        if( this.tripMap.containsKey(name)) {
+            tripMap.remove(name);
+        } else {removed=false;}
+        return removed;
+    }
 
     public void addCustomer(Customer customer) {
       this.customerSet.add(customer);
@@ -38,23 +48,16 @@ public class TravelOffice {
         }
 
 
+public void showCustomers(){
+    Consumer<Customer> printer = customer -> System.out.println(customer);
+    customerSet.forEach(printer);
+    }
 
-   public  boolean removeTrip(String name){
-        boolean removed=true;
-       if( this.tripMap.containsKey(name)) {
-           tripMap.remove(name);
-       } else {removed=false;}
-       return removed;
-   }
+    public void showTrips(){
+        BiConsumer<String, Trip> print = (name,trip) -> System.out.println(trip);
+        tripMap.forEach(print);
+    }
 
-   public boolean removeCustomer(Customer customer){
-       boolean removed=true;
-       if( this.customerSet.contains(customer)){
-           customerSet.remove(customer);
-       }
-       else {removed=false;}
-       return removed;
-   }
     Customer findCustomerByName(String name){
         for ( Customer c:customerSet
              ) { if( c.getName().equals(name)){return c;}
@@ -62,7 +65,6 @@ public class TravelOffice {
 
         return null;
     }
-
 
     public Set<Customer> getCustomerSet() {
         return customerSet;
@@ -82,6 +84,11 @@ public class TravelOffice {
     }
 
 
+    public void setCustomerCount(int customerCount) { this.customerCount = customerCount; }
+
+    public int getCustomerCount() {
+        return customerCount;
+    }
 
 
 

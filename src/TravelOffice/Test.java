@@ -2,6 +2,8 @@ package TravelOffice;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class Test {
 
@@ -37,15 +39,9 @@ public class Test {
         travelOffice.addTrip("Rzym",abroadTrip);
         travelOffice.addTrip("Wiedeń",abroadTrip2);
         travelOffice.addTrip("Kraków",domesticTrip);
-        System.out.println(travelOffice.getCustomerSet().toString());
-        System.out.println(travelOffice.getTripMap().toString());
-        travelOffice.removeCustomer(customer);
-        travelOffice.removeTrip("Kraków");
-        System.out.println(travelOffice.getCustomerSet().toString());
-        System.out.println(travelOffice.getTripMap().toString());
-        travelOffice.removeCustomer(customer);
-       travelOffice.removeTrip("Kraków");
-        System.out.println(travelOffice.findCustomerByName("Marek"));
+       travelOffice.removeCustomer("Marek");
+  travelOffice.showCustomers();
+  travelOffice.showTrips();
 
 
 
